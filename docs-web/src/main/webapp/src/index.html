@@ -1,189 +1,294 @@
 <!DOCTYPE html>
 <html ng-app="docs">
-  <head>
-    <title ng-bind-template="{{ pageTitle ? pageTitle : appName }}">Teedy</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="renderer" content="webkit" />
-    <link rel="shortcut icon" href="../api/theme/image/logo" />
-    <link rel="manifest" href="manifest.json" />
-    <!-- ref:css style/style.min.css?@build.date@ -->
-    <link rel="stylesheet" href="style/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="style/fontawesome.css" type="text/css" />
-    <link rel="stylesheet" href="style/colorpicker.css" type="text/css" />
-    <link rel="stylesheet" href="style/pell.css" type="text/css" />
-    <link rel="stylesheet" href="style/ng-onboarding.css" type="text/css" />
-    <link rel="stylesheet/less" href="style/main.less" type="text/css" />
-    <!-- endref -->
-    <link rel="stylesheet" href="../api/theme/stylesheet" type="text/css" id="theme-stylesheet" />
-    <!-- ref:remove -->
-    <script>
-      less = {
-        env: 'development', // or "production"
-        async: false,       // load imports async
-        fileAsync: false,   // load imports async when in a page under a file protocol
-        poll: 1000,         // when in watch mode, time in ms between polls
-        dumpLineNumbers: 'all' // or "mediaQuery" or "comments"
-      };
-    </script>
-    <!-- endref -->
-    <!-- ref:js docs.min.js?@build.date@ -->
-    <script src="lib/jquery.js" type="text/javascript"></script>
-    <script src="lib/jquery.ui.js" type="text/javascript"></script>
-    <script src="lib/less.js" type="text/javascript"></script>
-    <script src="lib/underscore.js" type="text/javascript"></script>
-    <script src="lib/colorpicker.js" type="text/javascript"></script>
-    <script src="lib/pell.js" type="text/javascript"></script>
-    <script src="lib/angular.js" type="text/javascript"></script>
-    <script src="lib/angular.translate.js" type="text/javascript"></script>
-    <script src="lib/angular.sanitize.js" type="text/javascript"></script>
-    <script src="lib/angular.touch.js" type="text/javascript"></script>
-    <script src="lib/angular.tmhDynamicLocale.js" type="text/javascript"></script>
-    <script src="lib/angular.ui-router.js" type="text/javascript"></script>
-    <script src="lib/angular.ui-bootstrap.js" type="text/javascript"></script>
-    <script src="lib/angular.ui-sortable.js" type="text/javascript"></script>
-    <script src="lib/angular.ui-validate.js" type="text/javascript"></script>
-    <script src="lib/angular.restangular.js" type="text/javascript"></script>
-    <script src="lib/angular.colorpicker.js" type="text/javascript"></script>
-    <script src="lib/angular.file-upload.js" type="text/javascript"></script>
-    <script src="lib/angular.ngprogress.js" type="text/javascript"></script>
-    <script src="lib/angular.qrcode.js" type="text/javascript"></script>
-    <script src="lib/angular.timeago.js" type="text/javascript"></script>
-    <script src="lib/angular.ng-onboarding.js" type="text/javascript"></script>
-    <script src="app/docs/app.js" type="text/javascript"></script>
-    <script src="app/docs/controller/Login.js" type="text/javascript"></script>
-    <script src="app/docs/controller/Main.js" type="text/javascript"></script>
-    <script src="app/docs/controller/ModalPasswordLost.js" type="text/javascript"></script>
-    <script src="app/docs/controller/ModalFeedback.js" type="text/javascript"></script>
-    <script src="app/docs/controller/ModalImport.js" type="text/javascript"></script>
-    <script src="app/docs/controller/PasswordReset.js" type="text/javascript"></script>
-    <script src="app/docs/controller/Navigation.js" type="text/javascript"></script>
-    <script src="app/docs/controller/Footer.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/Document.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentDefault.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentEdit.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentView.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentViewContent.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentViewWorkflow.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentViewPermissions.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentViewActivity.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentModalShare.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentModalPdf.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/DocumentModalAddTag.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/FileView.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/FileModalView.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/FileRename.js" type="text/javascript"></script>
-    <script src="app/docs/controller/document/ModalFileVersions.js" type="text/javascript"></script>
-    <script src="app/docs/controller/tag/Tag.js" type="text/javascript"></script>
-    <script src="app/docs/controller/tag/TagEdit.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/Settings.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsDefault.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsAccount.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsConfig.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsInbox.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsSecurity.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsSecurityModalDisableTotp.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsSession.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsMonitoring.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsWorkflow.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsWorkflowEdit.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsUser.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsUserEdit.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsGroup.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsGroupEdit.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsVocabulary.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsMetadata.js" type="text/javascript"></script>
-    <script src="app/docs/controller/settings/SettingsLdap.js" type="text/javascript"></script>
-    <script src="app/docs/controller/usergroup/UserGroup.js" type="text/javascript"></script>
-    <script src="app/docs/controller/usergroup/UserProfile.js" type="text/javascript"></script>
-    <script src="app/docs/controller/usergroup/GroupProfile.js" type="text/javascript"></script>
-    <script src="app/docs/service/User.js" type="text/javascript"></script>
-    <script src="app/docs/filter/Filesize.js" type="text/javascript"></script>
-    <script src="app/docs/directive/SelectTag.js" type="text/javascript"></script>
-    <script src="app/docs/directive/SelectRelation.js" type="text/javascript"></script>
-    <script src="app/docs/directive/AuditLog.js" type="text/javascript"></script>
-    <script src="app/docs/directive/ImgError.js" type="text/javascript"></script>
-    <script src="app/docs/directive/Acl.js" type="text/javascript"></script>
-    <script src="app/docs/directive/AclEdit.js" type="text/javascript"></script>
-    <script src="app/docs/directive/Pell.js" type="text/javascript"></script>
-    <script src="app/docs/directive/AddSpaceBetween.js" type="text/javascript"></script>
-    <script src="app/docs/directive/InvertTextColor.js" type="text/javascript"></script>
-    <!-- 在Teedy项目的index.html或父模板中添加编辑器容器 -->
-    <script src="../node_modules/tui-image-editor/dist/tui-image-editor.js"></script>
-    <link rel="stylesheet" href="../node_modules/tui-image-editor/dist/tui-image-editor.css">
-    <link rel="stylesheet" href="../node_modules/tui-color-picker/dist/tui-color-picker.css">
-    <!-- endref -->
-  </head>
-  <body translate-cloak ng-cloak>
-    <onboarding-popover ng-if="onboardingEnabled" enabled="onboardingEnabled" steps="onboardingSteps"></onboarding-popover>
+<head>
+  <title ng-bind-template="{{ pageTitle ? pageTitle : appName }}">Teedy</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="renderer" content="webkit"/>
+  <link rel="shortcut icon" href="../api/theme/image/logo"/>
+  <link rel="manifest" href="manifest.json"/>
+  <!-- ref:css style/style.min.css?@build.date@ -->
+  <link rel="stylesheet" href="style/bootstrap.css" type="text/css"/>
+  <link rel="stylesheet" href="style/fontawesome.css" type="text/css"/>
+  <link rel="stylesheet" href="style/colorpicker.css" type="text/css"/>
+  <link rel="stylesheet" href="style/pell.css" type="text/css"/>
+  <link rel="stylesheet" href="style/ng-onboarding.css" type="text/css"/>
+  <link rel="stylesheet/less" href="style/main.less" type="text/css"/>
+  <!-- endref -->
+  <link rel="stylesheet" href="../api/theme/stylesheet" type="text/css" id="theme-stylesheet"/>
+  <!-- ref:remove -->
+  <script>
+    less = {
+      env: 'development', // or "production"
+      async: false,       // load imports async
+      fileAsync: false,   // load imports async when in a page under a file protocol
+      poll: 1000,         // when in watch mode, time in ms between polls
+      dumpLineNumbers: 'all' // or "mediaQuery" or "comments"
+    };
+  </script>
+  <!-- endref -->
+  <!-- ref:js docs.min.js?@build.date@ -->
+  <script src="lib/jquery.js" type="text/javascript"></script>
+  <script src="lib/jquery.ui.js" type="text/javascript"></script>
+  <script src="lib/less.js" type="text/javascript"></script>
+  <script src="lib/underscore.js" type="text/javascript"></script>
+  <script src="lib/colorpicker.js" type="text/javascript"></script>
+  <script src="lib/pell.js" type="text/javascript"></script>
+  <script src="lib/angular.js" type="text/javascript"></script>
+  <script src="lib/angular.translate.js" type="text/javascript"></script>
+  <script src="lib/angular.sanitize.js" type="text/javascript"></script>
+  <script src="lib/angular.touch.js" type="text/javascript"></script>
+  <script src="lib/angular.tmhDynamicLocale.js" type="text/javascript"></script>
+  <script src="lib/angular.ui-router.js" type="text/javascript"></script>
+  <script src="lib/angular.ui-bootstrap.js" type="text/javascript"></script>
+  <script src="lib/angular.ui-sortable.js" type="text/javascript"></script>
+  <script src="lib/angular.ui-validate.js" type="text/javascript"></script>
+  <script src="lib/angular.restangular.js" type="text/javascript"></script>
+  <script src="lib/angular.colorpicker.js" type="text/javascript"></script>
+  <script src="lib/angular.file-upload.js" type="text/javascript"></script>
+  <script src="lib/angular.ngprogress.js" type="text/javascript"></script>
+  <script src="lib/angular.qrcode.js" type="text/javascript"></script>
+  <script src="lib/angular.timeago.js" type="text/javascript"></script>
+  <script src="lib/angular.ng-onboarding.js" type="text/javascript"></script>
+  <script src="app/docs/app.js" type="text/javascript"></script>
+  <script src="app/docs/controller/Login.js" type="text/javascript"></script>
+  <script src="app/docs/controller/Main.js" type="text/javascript"></script>
+  <script src="app/docs/controller/ModalPasswordLost.js" type="text/javascript"></script>
+  <script src="app/docs/controller/ModalFeedback.js" type="text/javascript"></script>
+  <script src="app/docs/controller/ModalImport.js" type="text/javascript"></script>
+  <script src="app/docs/controller/PasswordReset.js" type="text/javascript"></script>
+  <script src="app/docs/controller/Navigation.js" type="text/javascript"></script>
+  <script src="app/docs/controller/Footer.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/Document.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentDefault.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentEdit.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentView.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentViewContent.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentViewWorkflow.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentViewPermissions.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentViewActivity.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentModalShare.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentModalPdf.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/DocumentModalAddTag.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/FileView.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/FileModalView.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/FileRename.js" type="text/javascript"></script>
+  <script src="app/docs/controller/document/ModalFileVersions.js" type="text/javascript"></script>
+  <script src="app/docs/controller/tag/Tag.js" type="text/javascript"></script>
+  <script src="app/docs/controller/tag/TagEdit.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/Settings.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsDefault.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsAccount.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsConfig.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsInbox.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsSecurity.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsSecurityModalDisableTotp.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsSession.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsMonitoring.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsWorkflow.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsWorkflowEdit.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsUser.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsUserEdit.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsGroup.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsGroupEdit.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsVocabulary.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsMetadata.js" type="text/javascript"></script>
+  <script src="app/docs/controller/settings/SettingsLdap.js" type="text/javascript"></script>
+  <script src="app/docs/controller/usergroup/UserGroup.js" type="text/javascript"></script>
+  <script src="app/docs/controller/usergroup/UserProfile.js" type="text/javascript"></script>
+  <script src="app/docs/controller/usergroup/GroupProfile.js" type="text/javascript"></script>
+  <script src="app/docs/service/User.js" type="text/javascript"></script>
+  <script src="app/docs/filter/Filesize.js" type="text/javascript"></script>
+  <script src="app/docs/directive/SelectTag.js" type="text/javascript"></script>
+  <script src="app/docs/directive/SelectRelation.js" type="text/javascript"></script>
+  <script src="app/docs/directive/AuditLog.js" type="text/javascript"></script>
+  <script src="app/docs/directive/ImgError.js" type="text/javascript"></script>
+  <script src="app/docs/directive/Acl.js" type="text/javascript"></script>
+  <script src="app/docs/directive/AclEdit.js" type="text/javascript"></script>
+  <script src="app/docs/directive/Pell.js" type="text/javascript"></script>
+  <script src="app/docs/directive/AddSpaceBetween.js" type="text/javascript"></script>
+  <script src="app/docs/directive/InvertTextColor.js" type="text/javascript"></script>
+  <!-- endref -->
+</head>
+<!-- 新增导航栏样式 -->
 
-    <nav class="navbar navbar-default" role="navigation" ng-controller="Navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle"
-                ng-init="isCollapsed = true"
-                ng-click="isCollapsed = !isCollapsed">
-          <span class="sr-only">{{ 'index.toggle_navigation' | translate }}</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
 
-        <a class="navbar-brand" href="#">
-          <span ng-if="appName == 'Teedy'">
-            <span style="color: #2aabd2;">teedy</span>
-          </span>
-          <span ng-if="appName != 'Teedy'" style="color: #888;">{{ appName }}</span>
+<onboarding-popover ng-if="onboardingEnabled" enabled="onboardingEnabled" steps="onboardingSteps"></onboarding-popover>
+
+<nav class="navbar navbar-default" role="navigation" ng-controller="Navigation">
+  <style>
+    /* 新增导航栏样式 */
+    .navbar-default {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 260px;
+      background: #1a1b1e;
+      border-right: 1px solid #2c2e33;
+    }
+
+    .unified-nav {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 8px;
+      padding: 20px;
+    }
+
+    .nav.navbar-nav li {
+      width: 100%;
+      margin: 0 !important;
+    }
+
+    .nav-btn {
+      display: flex !important;
+      align-items: center;
+      padding: 14px 20px !important;
+      width: 100%;
+      border-radius: 6px;
+      color: #c1c2c5 !important;
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn:hover {
+      background: #2c2e33 !important;
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-btn.active {
+      background: #3b5bdb !important;
+      color: white !important;
+    }
+
+    .btn-label {
+      margin-left: 12px;
+      font-size: 0.95rem;
+      flex-grow: 1;
+    }
+
+    /* 用户按钮特殊样式 */
+    .user-btn {
+      background: #2c2e33 !important;
+      order: 1; /* 设置用户按钮在第1位 */
+    }
+
+    .logout-btn {
+      background: #e03131 !important;
+    }
+
+    /* 添加分隔线 */
+    /* 在第一个按钮后添加分割线 */
+    .unified-nav > li:nth-child(1)::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #2c2e33;
+      margin: 15px 0 20px;
+    }
+
+    /* 在第五个按钮后添加分割线 */
+    .unified-nav > li:nth-child(4)::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #2c2e33;
+      margin: 20px 0 15px;
+    }
+
+    /* 主内容区域偏移 */
+    [ui-view="page"] {
+      margin-left: 260px;
+      padding: 40px;
+      min-height: 100vh;
+    }
+
+    /* 响应式处理 */
+    @media (max-width: 992px) {
+      .navbar-default {
+        position: static;
+        width: 100%;
+      }
+
+      [ui-view="page"] {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .unified-nav {
+        padding: 15px;
+      }
+    }
+  </style>
+
+  <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
+    <ul class="nav navbar-nav unified-nav" ng-show="!userInfo.anonymous">
+
+      <!-- 用户按钮 -->
+      <li class="user-section">
+        <a href="{{ userInfo.username == 'guest' ? '#/user/guest' : '#/settings/account' }}"
+           class="nav-btn user-btn"
+           translate-attr="{ title: 'index.logged_as' }"
+           translate-values="{ username: userInfo.username }">
+          <span class="fas fa-user-circle"></span>
+          <span class="btn-label">{{ userInfo.username }}</span>
         </a>
-      </div>
+      </li>
 
-      <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-        <ul class="nav navbar-nav" ng-show="!userInfo.anonymous">
-          <li ui-sref-active="{ active: 'document.**' }">
-            <a href="#/document"><span class="fas fa-book"></span> {{ 'index.nav_documents' | translate }}</a>
-          </li>
-          <li ui-sref-active="{ active: 'tag.**' }" id="navigation-tag">
-            <a href="#/tag"><span class="fas fa-tags"></span> {{ 'index.nav_tags' | translate }}</a>
-          </li>
-          <li ui-sref-active="{ active: 'user.**', active2: 'group.**' }">
-            <a href="#/user"><span class="fas fa-user"></span> {{ 'index.nav_users_groups' | translate }}</a>
-          </li>
-        </ul>
+      <!-- 主功能按钮 -->
+      <li ui-sref-active="{ active: 'document.**' }">
+        <a href="#/document" class="nav-btn">
+          <span class="fas fa-file-alt"></span>
+          <span class="btn-label">{{ 'index.nav_documents' | translate }}</span>
+        </a>
+      </li>
+      <li ui-sref-active="{ active: 'tag.**' }" id="navigation-tag">
+        <a href="#/tag" class="nav-btn">
+          <span class="fas fa-tag"></span>
+          <span class="btn-label">{{ 'index.nav_tags' | translate }}</span>
+        </a>
+      </li>
+      <li ui-sref-active="{ active: 'user.**', active2: 'group.**' }">
+        <a href="#/user" class="nav-btn">
+          <span class="fas fa-users"></span>
+          <span class="btn-label">{{ 'index.nav_users_groups' | translate }}</span>
+        </a>
+      </li>
 
-        <ul class="nav navbar-nav navbar-right" ng-show="!userInfo.anonymous">
-          <li>
-            <a href="{{ userInfo.username == 'guest' ? '#/user/guest' : '#/settings/account' }}"
-               translate-attr="{ title: 'index.logged_as' }" translate-values="{ username: userInfo.username }">
-              <span class="fas fa-user"></span>
-              {{ userInfo.username }}
-            </a>
-          </li>
-          <li ui-sref-active="{ active: 'settings.**' }" ng-show="userInfo.username != 'guest'">
-            <a href="#/settings/account">
-              <span class="fas fa-cog"></span> {{ 'index.nav_settings' | translate }}
-            </a>
-          </li>
-          <li>
-            <a href="#" ng-click="logout($event)">
-              <span class="fas fa-power-off"></span> {{ 'index.logout' | translate }}
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    
-    <div ui-view="page">
+      <!--            &lt;!&ndash; 设置按钮 &ndash;&gt;-->
+      <!--            <li ui-sref-active="{ active: 'settings.**' }" ng-show="userInfo.username != 'guest'">-->
+      <!--                <a href="#/settings/account" class="nav-btn">-->
+      <!--                    <span class="fas fa-cog"></span>-->
+      <!--                    <span class="btn-label">{{ 'index.nav_settings' | translate }}</span>-->
+      <!--                </a>-->
+      <!--            </li>-->
+
+
+      <!-- 退出按钮 -->
+      <li>
+        <a href="#" class="nav-btn logout-btn" ng-click="logout($event)">
+          <span class="fas fa-sign-out-alt"></span>
+          <span class="btn-label">{{ 'index.logout' | translate }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div ui-view="page" style="background: #1a1b1e">
+</div>
+
+<div class="row" ng-controller="Footer">
+  <div class="col-md-12 footer text-center text-muted small">
+    <div class="alert alert-danger"
+         ng-show="app.global_storage_quota && app.global_storage_quota * 0.8 < app.global_storage_current"
+         translate="index.global_quota_warning"
+         translate-values="{ current: app.global_storage_current / 1000000, percent: app.global_storage_current / app.global_storage_quota * 100, total: app.global_storage_quota / 1000000 }">
     </div>
-
-    <div class="row" ng-controller="Footer">
-      <div class="col-md-12 footer text-center text-muted small">
-        <div class="alert alert-danger" ng-show="app.global_storage_quota && app.global_storage_quota * 0.8 < app.global_storage_current"
-             translate="index.global_quota_warning"
-             translate-values="{ current: app.global_storage_current / 1000000, percent: app.global_storage_current / app.global_storage_quota * 100, total: app.global_storage_quota / 1000000 }">
-        </div>
-        <ul class="list-inline">
-          <li uib-dropdown class="dropdown">
-            <a href uib-dropdown-toggle>
+    <ul class="list-inline">
+      <li uib-dropdown class="dropdown">
+        <a href uib-dropdown-toggle>
               <span ng-switch="currentLang">
                 <span ng-switch-when="en">English</span>
                 <span ng-switch-when="fr">Français</span>
@@ -198,28 +303,40 @@
                 <span ng-switch-when="zh_TW">繁體中文</span>
                 <span ng-switch-when="sq_AL">Shqip</span>
               </span>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href ng-click="changeLanguage('en')" ng-class="{ 'bg-info': currentLang == 'en' }">English</a></li>
-              <li><a href ng-click="changeLanguage('fr')" ng-class="{ 'bg-info': currentLang == 'fr' }">Français</a></li>
-              <li><a href ng-click="changeLanguage('de')" ng-class="{ 'bg-info': currentLang == 'de' }">Deutsch</a></li>
-              <li><a href ng-click="changeLanguage('it')" ng-class="{ 'bg-info': currentLang == 'it' }">Italiano</a></li>
-              <li><a href ng-click="changeLanguage('es')" ng-class="{ 'bg-info': currentLang == 'es' }">Española</a></li>
-              <li><a href ng-click="changeLanguage('pt')" ng-class="{ 'bg-info': currentLang == 'pt' }">Português</a></li>
-              <li><a href ng-click="changeLanguage('el')" ng-class="{ 'bg-info': currentLang == 'el' }">Ελληνικά</a></li>
-              <li><a href ng-click="changeLanguage('ru')" ng-class="{ 'bg-info': currentLang == 'ru' }">Pусский</a></li>
-              <li><a href ng-click="changeLanguage('pl')" ng-class="{ 'bg-info': currentLang == 'pl' }">Polski</a></li>              
-			        <li><a href ng-click="changeLanguage('zh_CN')" ng-class="{ 'bg-info': currentLang == 'zh_CN' }">简体中文</a></li>
-              <li><a href ng-click="changeLanguage('zh_TW')" ng-class="{ 'bg-info': currentLang == 'zh_TW' }">繁體中文</a></li>
-              <li><a href ng-click="changeLanguage('sq_AL')" ng-class="{ 'bg-info': currentLang == 'sq_AL' }">Shqip</a></li>
-            </ul>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href ng-click="changeLanguage('en')"
+                 ng-class="{ 'bg-info': currentLang == 'en' }">English</a></li>
+          <li><a href ng-click="changeLanguage('fr')"
+                 ng-class="{ 'bg-info': currentLang == 'fr' }">Français</a></li>
+          <li><a href ng-click="changeLanguage('de')"
+                 ng-class="{ 'bg-info': currentLang == 'de' }">Deutsch</a></li>
+          <li><a href ng-click="changeLanguage('it')"
+                 ng-class="{ 'bg-info': currentLang == 'it' }">Italiano</a></li>
+          <li><a href ng-click="changeLanguage('es')"
+                 ng-class="{ 'bg-info': currentLang == 'es' }">Española</a></li>
+          <li><a href ng-click="changeLanguage('pt')"
+                 ng-class="{ 'bg-info': currentLang == 'pt' }">Português</a></li>
+          <li><a href ng-click="changeLanguage('el')"
+                 ng-class="{ 'bg-info': currentLang == 'el' }">Ελληνικά</a></li>
+          <li><a href ng-click="changeLanguage('ru')"
+                 ng-class="{ 'bg-info': currentLang == 'ru' }">Pусский</a></li>
+          <li><a href ng-click="changeLanguage('pl')" ng-class="{ 'bg-info': currentLang == 'pl' }">Polski</a>
           </li>
-          <li translate="document.default.footer_sismics"></li>
-          <li><a href="apidoc/">{{ 'document.default.api_documentation' | translate }}</a></li>
-          <li>v{{ app.current_version }}</li>
+          <li><a href ng-click="changeLanguage('zh_CN')"
+                 ng-class="{ 'bg-info': currentLang == 'zh_CN' }">简体中文</a></li>
+          <li><a href ng-click="changeLanguage('zh_TW')"
+                 ng-class="{ 'bg-info': currentLang == 'zh_TW' }">繁體中文</a></li>
+          <li><a href ng-click="changeLanguage('sq_AL')" ng-class="{ 'bg-info': currentLang == 'sq_AL' }">Shqip</a>
+          </li>
         </ul>
-      </div>
-    </div>
-  </body>
+      </li>
+      <li translate="document.default.footer_sismics"></li>
+      <li><a href="apidoc/">{{ 'document.default.api_documentation' | translate }}</a></li>
+      <li>v{{ app.current_version }}</li>
+    </ul>
+  </div>
+</div>
+</body>
 </html>

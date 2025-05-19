@@ -1,58 +1,207 @@
-<div class="row">
-  <div class="col-md-4">
-    <div class="well well-3d">
-      <!-- Main new document button -->
-      <div class="text-center mb-19">
-        <div class="btn-group" uib-dropdown id="document-add-btn">
-          <a href="#/document/add" class="btn btn-primary">
-            <span class="fas fa-plus"></span> {{ 'document.add_document' | translate }}
-          </a>
-          <button type="button" class="btn btn-primary" uib-dropdown-toggle>
-            <span class="caret"></span>
-          </button>
-          <ul uib-dropdown-menu>
-            <li><a href ngf-select="importEml($file)">{{ 'document.import_eml' | translate }}</a></li>
-          </ul>
-        </div>
-      </div>
+<style>
+  /* ==================  DARK GRAY THEME  ================== */
+  .theme-dark {
+    color-scheme: dark; /* 让浏览器自动适配原生滚动条等 */
+    --bg-0: #0e0e0e; /* 最深 */
+    --bg-1: #1a1a1a;
+    --bg-2: #2d2d2d;
+    --bg-3: #3c3c3c; /* hover / border */
+    --text-0: #f1f1f1; /* 高亮文字 */
+    --text-1: #d0d0d0; /* 正文 */
+    --text-2: #9e9e9e; /* 次要/禁用 */
+    background: var(--bg-0);
+    color: var(--text-1);
+  }
 
-      <!-- Search (simple and advanced) -->
-      <div class="row search-dropdown-anchor">
-        <div class="col-xs-12 input-group" id="search-box">
-          <input type="search" class="form-control"
-                 uib-typeahead="suggestion for suggestion in suggestions"
-                 typeahead-focus-first="false"
-                 ng-attr-placeholder="{{ 'document.search' | translate }}" ng-model="search" />
-          <span class="input-group-addon btn" ng-click="openSearch()">
-            <div uib-dropdown
-                 auto-close="disabled" is-open="searchOpened" dropdown-append-to="searchDropdownAnchor">
+  /* 1. 按钮 ------------------------------------------------ */
+  .theme-dark .btn {
+    background: var(--bg-2);
+    border-color: var(--bg-3);
+    color: var(--text-0);
+  }
+
+  .theme-dark .btn:hover,
+  .theme-dark .btn:focus {
+    background: var(--bg-3);
+    border-color: var(--bg-3);
+  }
+
+  .theme-dark .btn-primary {
+    background: #3d5afe; /* 主色可自行替换 */
+    border-color: #304ffe;
+  }
+
+  .theme-dark .btn-default {
+    background: var(--bg-2);
+    border-color: var(--bg-3);
+  }
+
+  /* 2. 下拉菜单 -------------------------------------------- */
+  .theme-dark .dropdown-menu,
+  .theme-dark .dropdown-menu-dark {
+    background: var(--bg-2);
+    border: 1px solid var(--bg-3);
+    color: var(--text-1);
+  }
+
+  .theme-dark .dropdown-menu > li > a {
+    color: var(--text-1);
+  }
+
+  .theme-dark .dropdown-menu > li > a:hover {
+    background: var(--bg-3);
+    color: var(--text-0);
+  }
+
+  /* 3. 表单控件 -------------------------------------------- */
+  .theme-dark .form-control,
+  .theme-dark .select2-container--default .select2-selection--single {
+    background: var(--bg-1);
+    border: 1px solid var(--bg-3);
+    color: var(--text-0);
+  }
+
+  .theme-dark .form-control:focus {
+    background: var(--bg-1);
+    border-color: #3d5afe;
+    box-shadow: none;
+  }
+
+  .theme-dark ::placeholder {
+    color: var(--text-2);
+    opacity: 1;
+  }
+
+  /* 4. 输入组附加按钮/文字 --------------------------------- */
+  .theme-dark .input-group-addon,
+  .theme-dark .select2-container--default .select2-selection__arrow {
+    background: var(--bg-2);
+    border: 1px solid var(--bg-3);
+    color: var(--text-1);
+  }
+
+  /* 5. 表格 & 分页 ---------------------------------------- */
+  .theme-dark .table {
+    background: var(--bg-1);
+    color: var(--text-1);
+  }
+
+  .theme-dark .table > thead {
+    background: var(--bg-2);
+  }
+
+  .theme-dark .table-hover > tbody > tr:hover {
+    background: var(--bg-2);
+  }
+
+  .theme-dark .pagination > li > a,
+  .theme-dark .pagination > li > span {
+    background: var(--bg-2);
+    border: 1px solid var(--bg-3);
+    color: var(--text-1);
+  }
+
+  .theme-dark .pagination > li.active > a {
+    background: #3d5afe;
+    border-color: #304ffe;
+  }
+
+  /* 6. 面包屑 / 标签到期 ----------------------------------- */
+  .theme-dark .breadcrumb {
+    background: var(--bg-2);
+    border: 1px solid var(--bg-3);
+  }
+
+  .theme-dark .label {
+    color: var(--text-0);
+  }
+
+  /* 7. 卡片 / well / 3D 背景 ------------------------------ */
+  .theme-dark .well,
+  .theme-dark .well-3d,
+  .theme-dark .thumbnail {
+    background: var(--bg-1);
+    border: 1px solid var(--bg-3);
+    color: var(--text-1);
+  }
+
+  /* 使 .well-3d 背景暗化 */
+  .theme-dark .well-3d-background {
+    color: #252525; /* 低对比度的图标色 */
+  }
+
+  /* 8. 其他图标 ------------------------------------------- */
+  .theme-dark [class*="fa-"],
+  .theme-dark [class*="fas"],
+  .theme-dark [class*="far"] {
+    color: var(--text-1);
+  }
+
+  /* ==================  END THEME  ================== */
+</style>
+
+<!-- 把原有 DOM 用 .theme-dark 包裹即可 -->
+<div class="theme-dark">
+  <!-- 这里粘贴你的原始 HTML 结构，无需其他改动 -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="well well-3d">
+        <!-- Main new document button -->
+        <div class="text-center mb-19">
+          <div class="btn-group" id="document-add-btn" uib-dropdown>
+            <a class="btn btn-dark" href="#/document/add"> <!-- 修改 class -->
+              <span class="fas fa-plus"></span> {{ 'document.add_document' | translate }}
+            </a>
+            <button class="btn btn-dark" type="button" uib-dropdown-toggle> <!-- 修改 class -->
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu-dark" uib-dropdown-menu> <!-- 添加 class -->
+              <li><a href ngf-select="importEml($file)">{{ 'document.import_eml' | translate }}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Search (simple and advanced) -->
+        <div class="row search-dropdown-anchor">
+          <div class="col-xs-12 input-group" id="search-box">
+            <input class="form-control" ng-attr-placeholder="{{ 'document.search' | translate }}"
+                   ng-model="search"
+                   type="search"
+                   typeahead-focus-first="false" uib-typeahead="suggestion for suggestion in suggestions"/>
+            <span class="input-group-addon btn" ng-click="openSearch()">
+            <div auto-close="disabled"
+                 dropdown-append-to="searchDropdownAnchor" is-open="searchOpened" uib-dropdown>
               <span class="btn-open-search">
                 <span class="fas fa-search"></span>
                 <span class="caret"></span>
               </span>
-              <div uib-dropdown-menu class="search-dropdown-menu col-xs-12" ng-click="$event.stopPropagation()">
+              <div class="search-dropdown-menu col-xs-12" ng-click="$event.stopPropagation()" uib-dropdown-menu>
                 <form class="form-horizontal" name="searchForm" novalidate>
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchSimple">{{ 'document.search_simple' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchSimple" class="form-control" ng-attr-placeholder="{{ 'document.search_simple' | translate }}" ng-model="advsearch.search_simple" />
+                      <input class="form-control" id="inputSearchSimple" ng-attr-placeholder="{{ 'document.search_simple' | translate }}"
+                             ng-model="advsearch.search_simple"
+                             type="text"/>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchFulltext">{{ 'document.search_fulltext' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchFulltext" class="form-control" ng-attr-placeholder="{{ 'document.search_fulltext' | translate }}" ng-model="advsearch.search_fulltext" />
+                      <input class="form-control" id="inputSearchFulltext" ng-attr-placeholder="{{ 'document.search_fulltext' | translate }}"
+                             ng-model="advsearch.search_fulltext"
+                             type="text"/>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchCreator">{{ 'document.search_creator' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchCreator" class="form-control" ng-model="advsearch.creator"
-                             ng-attr-placeholder="{{ 'document.search_creator' | translate }}"
-                             uib-typeahead="user for user in getUserTypeahead($viewValue)"
-                             typeahead-wait-ms="200" typeahead-editable="false" autocomplete="off" />
+                      <input autocomplete="off" class="form-control" id="inputSearchCreator" ng-attr-placeholder="{{ 'document.search_creator' | translate }}"
+                             ng-model="advsearch.creator"
+                             type="text"
+                             typeahead-editable="false" typeahead-wait-ms="200" uib-typeahead="user for user in getUserTypeahead($viewValue)"/>
                     </div>
                   </div>
 
@@ -69,84 +218,90 @@
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchAfterDate">{{ 'document.search_after_date' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchAfterDate"
-                             ng-attr-placeholder="{{ 'document.search_after_date' | translate }}"
-                             current-text="{{ 'directive.datepicker.current' | translate }}"
-                             clear-text="{{ 'directive.datepicker.clear' | translate }}"
+                      <input class="form-control" clear-text="{{ 'directive.datepicker.clear' | translate }}"
                              close-text="{{ 'directive.datepicker.close' | translate }}"
+                             current-text="{{ 'directive.datepicker.current' | translate }}"
                              datepicker-append-to-body="true"
-                             ng-readonly="true" uib-datepicker-popup="{{ dateFormat }}" class="form-control"
-                             ng-model="advsearch.after_date" datepicker-options="{ startingDay:1, showWeeks: false }"
-                             ng-click="datepickerAfterOpened = !datepickerAfterOpened" is-open="datepickerAfterOpened" />
+                             datepicker-options="{ startingDay:1, showWeeks: false }"
+                             id="inputSearchAfterDate"
+                             is-open="datepickerAfterOpened" ng-attr-placeholder="{{ 'document.search_after_date' | translate }}" ng-click="datepickerAfterOpened = !datepickerAfterOpened"
+                             ng-model="advsearch.after_date" ng-readonly="true"
+                             type="text" uib-datepicker-popup="{{ dateFormat }}"/>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchBeforeDate">{{ 'document.search_before_date' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchBeforeDate"
-                             ng-attr-placeholder="{{ 'document.search_before_date' | translate }}"
-                             current-text="{{ 'directive.datepicker.current' | translate }}"
-                             clear-text="{{ 'directive.datepicker.clear' | translate }}"
+                      <input class="form-control" clear-text="{{ 'directive.datepicker.clear' | translate }}"
                              close-text="{{ 'directive.datepicker.close' | translate }}"
+                             current-text="{{ 'directive.datepicker.current' | translate }}"
                              datepicker-append-to-body="true"
-                             ng-readonly="true" uib-datepicker-popup="{{ dateFormat }}" class="form-control"
-                             ng-model="advsearch.before_date" datepicker-options="{ startingDay:1, showWeeks: false }"
-                             ng-click="datepickerBeforeOpened = !datepickerBeforeOpened" is-open="datepickerBeforeOpened" />
+                             datepicker-options="{ startingDay:1, showWeeks: false }"
+                             id="inputSearchBeforeDate"
+                             is-open="datepickerBeforeOpened" ng-attr-placeholder="{{ 'document.search_before_date' | translate }}" ng-click="datepickerBeforeOpened = !datepickerBeforeOpened"
+                             ng-model="advsearch.before_date" ng-readonly="true"
+                             type="text"
+                             uib-datepicker-popup="{{ dateFormat }}"/>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchAfterUpdateDate">{{ 'document.search_after_update_date' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchAfterUpdateDate"
-                             ng-attr-placeholder="{{ 'document.search_after_update_date' | translate }}"
-                             current-text="{{ 'directive.datepicker.current' | translate }}"
-                             clear-text="{{ 'directive.datepicker.clear' | translate }}"
+                      <input class="form-control" clear-text="{{ 'directive.datepicker.clear' | translate }}"
                              close-text="{{ 'directive.datepicker.close' | translate }}"
+                             current-text="{{ 'directive.datepicker.current' | translate }}"
                              datepicker-append-to-body="true"
-                             ng-readonly="true" uib-datepicker-popup="{{ dateFormat }}" class="form-control"
-                             ng-model="advsearch.after_update_date" datepicker-options="{ startingDay:1, showWeeks: false }"
-                             ng-click="datepickerAfterUpdateOpened = !datepickerAfterUpdateOpened" is-open="datepickerAfterUpdateOpened" />
+                             datepicker-options="{ startingDay:1, showWeeks: false }"
+                             id="inputSearchAfterUpdateDate"
+                             is-open="datepickerAfterUpdateOpened" ng-attr-placeholder="{{ 'document.search_after_update_date' | translate }}" ng-click="datepickerAfterUpdateOpened = !datepickerAfterUpdateOpened"
+                             ng-model="advsearch.after_update_date"
+                             ng-readonly="true"
+                             type="text"
+                             uib-datepicker-popup="{{ dateFormat }}"/>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label sr-only" for="inputSearchBeforeUpdateDate">{{ 'document.search_before_update_date' | translate }}</label>
                     <div class="col-sm-12">
-                      <input type="text" id="inputSearchBeforeUpdateDate"
-                             ng-attr-placeholder="{{ 'document.search_before_update_date' | translate }}"
-                             current-text="{{ 'directive.datepicker.current' | translate }}"
-                             clear-text="{{ 'directive.datepicker.clear' | translate }}"
+                      <input class="form-control" clear-text="{{ 'directive.datepicker.clear' | translate }}"
                              close-text="{{ 'directive.datepicker.close' | translate }}"
+                             current-text="{{ 'directive.datepicker.current' | translate }}"
                              datepicker-append-to-body="true"
-                             ng-readonly="true" uib-datepicker-popup="{{ dateFormat }}" class="form-control"
-                             ng-model="advsearch.before_update_date" datepicker-options="{ startingDay:1, showWeeks: false }"
-                             ng-click="datepickerBeforeUpdateOpened = !datepickerBeforeUpdateOpened" is-open="datepickerBeforeUpdateOpened" />
+                             datepicker-options="{ startingDay:1, showWeeks: false }"
+                             id="inputSearchBeforeUpdateDate"
+                             is-open="datepickerBeforeUpdateOpened" ng-attr-placeholder="{{ 'document.search_before_update_date' | translate }}" ng-click="datepickerBeforeUpdateOpened = !datepickerBeforeUpdateOpened"
+                             ng-model="advsearch.before_update_date"
+                             ng-readonly="true"
+                             type="text"
+                             uib-datepicker-popup="{{ dateFormat }}"/>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label sr-only" for="inputSearchTags">{{ 'document.search_tags' | translate }}</label>
+                    <label class="control-label sr-only"
+                           for="inputSearchTags">{{ 'document.search_tags' | translate }}</label>
                     <div class="col-sm-12">
-                      <select-tag tags="advsearch.tags" ref="inputSearchTags"></select-tag>
+                      <select-tag ref="inputSearchTags" tags="advsearch.tags"></select-tag>
                     </div>
                   </div>
 
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" ng-model="advsearch.shared"> {{ 'document.search_shared' | translate }}
+                      <input ng-model="advsearch.shared" type="checkbox"> {{ 'document.search_shared' | translate }}
                     </label>
                   </div>
 
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" ng-model="advsearch.workflow"> {{ 'document.search_workflow' | translate }}
+                      <input ng-model="advsearch.workflow" type="checkbox"> {{ 'document.search_workflow' | translate }}
                     </label>
                   </div>
 
                   <div class="form-group text-center">
-                    <button type="submit" ng-click="startSearch()" class="btn btn-primary">
+                    <button class="btn btn-primary" ng-click="startSearch()" type="submit">
                       <span class="fas fa-search"></span> {{ 'document.search' | translate }}
                     </button>
                     <button class="btn" ng-click="clearSearch()">
@@ -157,188 +312,210 @@
               </div>
             </div>
           </span>
+          </div>
         </div>
-      </div>
 
-      <!-- Navigation breadcrumb -->
-      <ol class="breadcrumb breadcrumb-navigation pull-left mt-10">
-        <li><a href ng-click="navigateToTag()"><span class="fas fa-home"></span></a></li>
-        <li ng-repeat="tag in getCurrentNavigation()" ng-class="{ active: tag.id == navigatedTag.id }">
-          <a class="label" ng-style="{ 'background-color': tag.color }" ng-if="tag.id != navigatedTag.id" href ng-click="navigateToTag(tag)">{{ tag.name }}</a>
-          <span class="label" ng-style="{ 'background-color': tag.color }" ng-if="tag.id == navigatedTag.id">{{ tag.name }}</span>
-        </li>
-      </ol>
+        <!-- Navigation breadcrumb -->
+        <ol class="breadcrumb breadcrumb-navigation pull-left mt-10">
+          <li><a href ng-click="navigateToTag()"><span class="fas fa-home"></span></a></li>
+          <li ng-class="{ active: tag.id == navigatedTag.id }" ng-repeat="tag in getCurrentNavigation()">
+            <a class="label" href ng-click="navigateToTag(tag)"
+               ng-if="tag.id != navigatedTag.id" ng-style="{ 'background-color': tag.color }">{{ tag.name }}</a>
+            <span class="label" ng-if="tag.id == navigatedTag.id"
+                  ng-style="{ 'background-color': tag.color }">{{ tag.name }}</span>
+          </li>
+        </ol>
 
-      <!-- Display mode (list or grid) -->
-      <div class="btn-group mt-10 ml-10 pull-right">
+        <!-- Display mode (list or grid) -->
+        <div class="btn-group mt-10 ml-10 pull-right">
           <span class="btn btn-default" ng-class="{ active: displayMode == 'list' }"
-                uib-tooltip="{{ 'document.display_mode_list' | translate }}"
+                ng-click="displayMode = 'list'"
                 tooltip-append-to-body="true"
-                ng-click="displayMode = 'list'">
+                uib-tooltip="{{ 'document.display_mode_list' | translate }}">
             <span class="fas fa-list"></span>
           </span>
-        <span class="btn btn-default" ng-class="{ active: displayMode == 'grid' }"
-              uib-tooltip="{{ 'document.display_mode_grid' | translate }}"
-              tooltip-append-to-body="true"
-              ng-click="displayMode = 'grid'">
+          <span class="btn btn-default" ng-class="{ active: displayMode == 'grid' }"
+                ng-click="displayMode = 'grid'"
+                tooltip-append-to-body="true"
+                uib-tooltip="{{ 'document.display_mode_grid' | translate }}">
             <span class="fas fa-th"></span>
           </span>
-      </div>
+        </div>
 
-      <div class="btn-group mt-10 pull-right">
-        <!-- Go up in the navigation -->
-        <button class="btn btn-default" ng-click="navigateUp()"
-                uib-tooltip="{{ 'document.navigation_up' | translate }}"
-                tooltip-append-to-body="true"
-                ng-if="navigatedTag">
-          <span class="fas fa-chevron-up"></span>
-        </button>
-        <!-- Toggle navigation -->
-        <button class="btn btn-default" ng-click="navigationToggle()"
-                ng-class="{ active: navigationEnabled }"
-                uib-tooltip="{{ 'document.toggle_navigation' | translate }}"
-                tooltip-append-to-body="true">
-          <span class="far" ng-class="{ 'fa-folder-open': navigationEnabled, 'fa-folder': !navigationEnabled }"></span>
-        </button>
-        <!-- Add a tag here -->
-        <button class="btn btn-primary btn-add-tag"
-                uib-tooltip="{{ 'tag.new_tag' | translate }}"
-                ng-click="addTagHere()">
+        <div class="btn-group mt-10 pull-right">
+          <!-- Go up in the navigation -->
+          <button class="btn btn-default" ng-click="navigateUp()"
+                  ng-if="navigatedTag"
+                  tooltip-append-to-body="true"
+                  uib-tooltip="{{ 'document.navigation_up' | translate }}">
+            <span class="fas fa-chevron-up"></span>
+          </button>
+          <!-- Toggle navigation -->
+          <button class="btn btn-default" ng-class="{ active: navigationEnabled }"
+                  ng-click="navigationToggle()"
+                  tooltip-append-to-body="true"
+                  uib-tooltip="{{ 'document.toggle_navigation' | translate }}">
+                        <span class="far"
+                              ng-class="{ 'fa-folder-open': navigationEnabled, 'fa-folder': !navigationEnabled }"></span>
+          </button>
+          <!-- Add a tag here -->
+          <button class="btn btn-primary btn-add-tag"
+                  ng-click="addTagHere()"
+                  uib-tooltip="{{ 'tag.new_tag' | translate }}">
           <span>
             <i class="fas fa-tag"></i>
             <i class="fas fa-plus"></i>
           </span>
-        </button>
-      </div>
+          </button>
+        </div>
 
-      <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-      <!-- Current folder -->
-      <table class="row table table-hover table-navigation" ng-show="navigationEnabled">
-        <tr ng-repeat="tag in tags | filter: navigatedFilter: navigatedComparator | orderBy: '+name'" ng-click="navigateToTag(tag)">
-          <td class="tree-structure">
-            <div class="tree-line"></div>
-          </td>
-          <td>
-            <span class="fas fa-tags" ng-style="{ color: tag.color }"></span> {{ tag.name }}
-            <span class="text-muted small">{{ getTagChildrenShort(tag) }}</span>
-          </td>
-        </tr>
-      </table>
+        <!-- Current folder -->
+        <table class="row table table-hover table-navigation" ng-show="navigationEnabled">
+          <tr ng-click="navigateToTag(tag)"
+              ng-repeat="tag in tags | filter: navigatedFilter: navigatedComparator | orderBy: '+name'">
+            <td class="tree-structure">
+              <div class="tree-line"></div>
+            </td>
+            <td>
+              <span class="fas fa-tags" ng-style="{ color: tag.color }"></span> {{ tag.name }}
+              <span class="text-muted small">{{ getTagChildrenShort(tag) }}</span>
+            </td>
+          </tr>
+        </table>
 
-      <!-- Document list -->
-      <table class="row table table-hover table-documents" ng-show="displayMode == 'list'">
-        <thead>
-        <tr>
-          <th class="col-xs-6" ng-click="sortDocuments(1)">{{ 'document.title' | translate }} <span class="fas fa-chevron-{{ sortColumn == 1 ? (asc ? 'down' : 'up') : '' }}"></span></th>
-          <th class="col-xs-3" ng-click="sortDocuments(3)">{{ 'document.creation_date' | translate }} <span class="fas fa-chevron-{{ sortColumn == 3 ? (asc ? 'down' : 'up') : '' }}"></span></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-if="!documents">
-          <td colspan="2" class="text-center">
-            <span class="fas fa-circle-notch fa-spin"></span>
-          </td>
-        </tr>
+        <!-- Document list -->
+        <table class="row table table-hover table-documents" ng-show="displayMode == 'list'">
+          <thead>
+          <tr>
+            <th class="col-xs-6" ng-click="sortDocuments(1)">{{ 'document.title' | translate }} <span
+                    class="fas fa-chevron-{{ sortColumn == 1 ? (asc ? 'down' : 'up') : '' }}"></span></th>
+            <th class="col-xs-3" ng-click="sortDocuments(3)">{{ 'document.creation_date' | translate }}
+              <span class="fas fa-chevron-{{ sortColumn == 3 ? (asc ? 'down' : 'up') : '' }}"></span></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-if="!documents">
+            <td class="text-center" colspan="2">
+              <span class="fas fa-circle-notch fa-spin"></span>
+            </td>
+          </tr>
 
-        <tr ng-if="totalDocuments == 0">
-          <td colspan="2" class="text-center">
-            <span ng-if="search.length == 0">{{ 'document.no_documents' | translate }}</span>
-            <span ng-if="search.length > 0" translate="document.search_empty" translate-values="{ search: search }"></span>
-          </td>
-        </tr>
+          <tr ng-if="totalDocuments == 0">
+            <td class="text-center" colspan="2">
+              <span ng-if="search.length == 0">{{ 'document.no_documents' | translate }}</span>
+              <span ng-if="search.length > 0" translate="document.search_empty"
+                    translate-values="{ search: search }"></span>
+            </td>
+          </tr>
 
-        <tr ng-click="viewDocument(document.id)" ng-repeat="document in documents" ng-class="{ active: $stateParams.id == document.id }">
-          <td colspan="2">
-            {{ document.title }} ({{ document.file_count }})
-            <span class="fas fa-share" ng-if="document.shared" uib-tooltip="{{ 'document.shared' | translate }}"></span>
-            <span class="fas fa-random" ng-if="document.active_route" uib-tooltip="{{ document.current_step_name }}"></span>
-            <a href="#/document/view/{{ document.id }}" target="_blank" ng-click="$event.stopPropagation()"><span class="fas fa-link"></span></a>
+          <tr ng-class="{ active: $stateParams.id == document.id }" ng-click="viewDocument(document.id)"
+              ng-repeat="document in documents">
+            <td colspan="2">
+              {{ document.title }} ({{ document.file_count }})
+              <span class="fas fa-share" ng-if="document.shared"
+                    uib-tooltip="{{ 'document.shared' | translate }}"></span>
+              <span class="fas fa-random" ng-if="document.active_route"
+                    uib-tooltip="{{ document.current_step_name }}"></span>
+              <a href="#/document/view/{{ document.id }}" ng-click="$event.stopPropagation()"
+                 target="_blank"><span class="fas fa-link"></span></a>
 
-            <div class="pull-right text-muted small" uib-tooltip="{{ 'document.last_updated' | translate: { date: document.update_date } }}">
-              {{ document.create_date | timeAgo: dateFormat }}
-            </div>
+              <div class="pull-right text-muted small"
+                   uib-tooltip="{{ 'document.last_updated' | translate: { date: document.update_date } }}">
+                {{ document.create_date | timeAgo: dateFormat }}
+              </div>
 
-            <div class="tags small">
-              <span class="label label-info" ng-repeat="tag in document.tags" ng-style="{ 'background': tag.color }" invert-text-color="{{ tag.color }}" add-space-between>
+              <div class="tags small">
+              <span add-space-between class="label label-info" invert-text-color="{{ tag.color }}"
+                    ng-repeat="tag in document.tags" ng-style="{ 'background': tag.color }">
                 {{ tag.name }}
               </span>
-            </div>
+              </div>
 
-            <div ng-if="document.highlight" class="small well-sm" ng-bind-html="document.highlight"></div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+              <div class="small well-sm" ng-bind-html="document.highlight"
+                   ng-if="document.highlight"></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-      <!-- Document grid -->
-      <div class="row table-documents" ng-show="displayMode == 'grid'">
-        <div ng-if="!documents" class="col-md-12 text-center">
-          <span class="fas fa-circle-notch fa-spin"></span>
-        </div>
+        <!-- Document grid -->
+        <div class="row table-documents" ng-show="displayMode == 'grid'">
+          <div class="col-md-12 text-center" ng-if="!documents">
+            <span class="fas fa-circle-notch fa-spin"></span>
+          </div>
 
-        <div ng-if="totalDocuments == 0" class=" col-md-12 text-center">
-          <span ng-if="search.length == 0">{{ 'document.no_documents' | translate }}</span>
-          <span ng-if="search.length > 0" translate="document.search_empty" translate-values="{ search: search }"></span>
-        </div>
+          <div class=" col-md-12 text-center" ng-if="totalDocuments == 0">
+            <span ng-if="search.length == 0">{{ 'document.no_documents' | translate }}</span>
+            <span ng-if="search.length > 0" translate="document.search_empty"
+                  translate-values="{ search: search }"></span>
+          </div>
 
-        <div class="col-md-12 row">
-          <div ng-repeat-start="document in documents" class="col-md-4">
-            <div class="thumbnail" ng-class="{ active: $stateParams.id == document.id }">
-              <a href="#/document/view/{{ document.id }}" class="file-thumbnail">
-                <img class="img-responsive" ng-if="document.file_id" ng-src="../api/file/{{ document.file_id }}/data?size=thumb" />
-              </a>
+          <div class="col-md-12 row">
+            <div class="col-md-4" ng-repeat-start="document in documents">
+              <div class="thumbnail" ng-class="{ active: $stateParams.id == document.id }">
+                <a class="file-thumbnail" href="#/document/view/{{ document.id }}">
+                  <img class="img-responsive" ng-if="document.file_id"
+                       ng-src="../api/file/{{ document.file_id }}/data?size=thumb"/>
+                </a>
 
-              <div class="file-info hidden-md">
-                <div></div>
-                <div class="v-align file-name text-center" title="{{document.title}}">
-                  {{ document.title }} ({{ document.file_count }})
-                  <span class="fas fa-share" ng-if="document.shared" uib-tooltip="{{ 'document.shared' | translate }}"></span>
-                  <span class="fas fa-random" ng-if="document.active_route" uib-tooltip="{{ document.current_step_name }}"></span>
+                <div class="file-info hidden-md">
+                  <div></div>
+                  <div class="v-align file-name text-center" title="{{document.title}}">
+                    {{ document.title }} ({{ document.file_count }})
+                    <span class="fas fa-share" ng-if="document.shared"
+                          uib-tooltip="{{ 'document.shared' | translate }}"></span>
+                    <span class="fas fa-random" ng-if="document.active_route"
+                          uib-tooltip="{{ document.current_step_name }}"></span>
+                  </div>
+                  <div></div>
                 </div>
-                <div></div>
               </div>
             </div>
+            <div class="clearfix" ng-if="($index + 1) % 3 == 0" ng-repeat-end></div>
           </div>
-          <div class="clearfix" ng-repeat-end ng-if="($index + 1) % 3 == 0"></div>
+        </div>
+
+        <div class="text-center pagination-box">
+          <ul first-text="{{ 'pagination.first' | translate }}"
+              items-per-page="$parent.limit"
+              last-text="{{ 'pagination.last' | translate }}"
+              max-size="5"
+              next-text="{{ 'pagination.next' | translate }}"
+              ng-if="paginationShown"
+              ng-model="$parent.currentPage" previous-text="{{ 'pagination.previous' | translate }}" total-items="totalDocuments"
+              uib-pagination></ul>
+          <label class="sr-only" for="pagesizeSelect">{{ 'document.page_size' | translate }}</label>
+          <select class="form-control" id="pagesizeSelect" ng-model="limit">
+            <option value="10">{{ 'document.page_size_10' | translate }}</option>
+            <option value="20">{{ 'document.page_size_20' | translate }}</option>
+            <option value="30">{{ 'document.page_size_30' | translate }}</option>
+          </select>
+        </div>
+
+        <!--<a class="text-center"><span class="fas fa-plus"></span> Add this search query on the home</a>-->
+
+        <div class="pull-left small text-muted" title="{{ 'document.upgrade_quota' | translate }}"
+             translate="document.quota"
+             translate-values="{ current: userInfo.storage_current / 1000000, percent: userInfo.storage_current / userInfo.storage_quota * 100, total: userInfo.storage_quota / 1000000 }">
+        </div>
+
+        <div class="text-right small text-muted">
+                    <span ng-if="totalDocuments" translate="document.count"
+                          translate-values="{ count: totalDocuments }"></span>
+          <span ng-if="!totalDocuments">&nbsp;</span>
+        </div>
+
+        <div class="well-3d-background">
+          <span class="fas fa-book"></span>
         </div>
       </div>
+    </div>
 
-      <div class="text-center pagination-box">
-        <ul uib-pagination
-            ng-if="paginationShown"
-            previous-text="{{ 'pagination.previous' | translate }}"
-            next-text="{{ 'pagination.next' | translate }}"
-            first-text="{{ 'pagination.first' | translate }}"
-            last-text="{{ 'pagination.last' | translate }}"
-            total-items="totalDocuments" items-per-page="$parent.limit" max-size="5" ng-model="$parent.currentPage"></ul>
-        <label class="sr-only" for="pagesizeSelect">{{ 'document.page_size' | translate }}</label>
-        <select ng-model="limit" id="pagesizeSelect" class="form-control">
-          <option value="10">{{ 'document.page_size_10' | translate }}</option>
-          <option value="20">{{ 'document.page_size_20' | translate }}</option>
-          <option value="30">{{ 'document.page_size_30' | translate }}</option>
-        </select>
-      </div>
-
-      <!--<a class="text-center"><span class="fas fa-plus"></span> Add this search query on the home</a>-->
-
-      <div class="pull-left small text-muted" title="{{ 'document.upgrade_quota' | translate }}"
-           translate="document.quota"
-           translate-values="{ current: userInfo.storage_current / 1000000, percent: userInfo.storage_current / userInfo.storage_quota * 100, total: userInfo.storage_quota / 1000000 }">
-      </div>
-
-      <div class="text-right small text-muted">
-        <span ng-if="totalDocuments" translate="document.count" translate-values="{ count: totalDocuments }"></span>
-        <span ng-if="!totalDocuments">&nbsp;</span>
-      </div>
-
-      <div class="well-3d-background">
-        <span class="fas fa-book"></span>
-      </div>
+    <div class="col-md-8">
+      <div ui-view="document"></div>
     </div>
   </div>
-
-  <div class="col-md-8">
-    <div ui-view="document"></div>
-  </div>
 </div>
+
