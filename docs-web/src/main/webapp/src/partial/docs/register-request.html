@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{'register_request.title' | translate}}</h4>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label>{{'username' | translate}}</label>
+            <input type="text" class="form-control" ng-model="request.username">
+        </div>
+        <div class="form-group">
+            <label>{{'password' | translate}}</label>
+            <input type="password" class="form-control" ng-model="request.password" required>
+        </div>
+        <div class="form-group">
+            <label>{{'email' | translate}}</label>
+            <input type="email" class="form-control" ng-model="request.email">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submitRequest()">{{'submit' | translate}}</button>
+</div>
